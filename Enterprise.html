@@ -1,379 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IT Elevation | Enterprise Architecture</title>
-  <style>
-    :root {
-      --graphite: #1C1F26;
-      --blue: #0B3D91;
-      --steel: #6B7280;
-      --light: #F4F6F8;
-      --white: #FFFFFF;
-      --border: #E5E7EB;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--graphite);
-      background: var(--white);
-      line-height: 1.55;
-    }
-
-    .page {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 28px 56px;
-    }
-
-    header {
-      padding: 56px 0 36px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .eyebrow {
-      color: var(--blue);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 13px;
-      margin-bottom: 14px;
-    }
-
-    h1 {
-      font-size: clamp(36px, 5vw, 58px);
-      line-height: 1.05;
-      margin: 0 0 18px;
-      letter-spacing: -0.04em;
-    }
-
-    .hero-text {
-      max-width: 760px;
-      font-size: 20px;
-      color: #374151;
-      margin-bottom: 30px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .hero-card {
-      background: var(--light);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 26px;
-    }
-
-    .hero-card h2 {
-      margin-top: 0;
-      font-size: 24px;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .pill {
-      border: 1px solid rgba(11,61,145,0.22);
-      color: var(--blue);
-      background: rgba(11,61,145,0.06);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    section { padding: 42px 0 0; }
-
-    .section-title {
-      font-size: 30px;
-      margin: 0 0 12px;
-      letter-spacing: -0.025em;
-    }
-
-    .section-intro {
-      max-width: 820px;
-      color: #4B5563;
-      font-size: 17px;
-      margin: 0 0 24px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-      background: var(--white);
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 19px;
-      color: var(--blue);
-    }
-
-    .card p { margin: 0; color: #4B5563; }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-    }
-
-    .list {
-      margin: 0;
-      padding-left: 20px;
-      color: #374151;
-    }
-
-    .list li { margin-bottom: 10px; }
-
-    .stack {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .step {
-      background: var(--light);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      min-height: 130px;
-    }
-
-    .step strong {
-      display: block;
-      color: var(--blue);
-      margin-bottom: 8px;
-    }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .metric {
-      background: var(--graphite);
-      color: var(--white);
-      border-radius: 18px;
-      padding: 22px;
-      min-height: 135px;
-    }
-
-    .metric span {
-      display: block;
-      font-size: 13px;
-      color: #D1D5DB;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .metric strong {
-      font-size: 20px;
-      line-height: 1.25;
-    }
-
-    .cta {
-      margin-top: 46px;
-      background: linear-gradient(135deg, var(--graphite), var(--blue));
-      color: var(--white);
-      border-radius: 28px;
-      padding: 36px;
-      display: grid;
-      grid-template-columns: 1.6fr 0.8fr;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .cta h2 {
-      margin: 0 0 12px;
-      font-size: 32px;
-      letter-spacing: -0.025em;
-    }
-
-    .cta p { margin: 0; color: #E5E7EB; font-size: 17px; }
-
-    .button {
-      display: inline-block;
-      justify-self: end;
-      background: var(--white);
-      color: var(--blue);
-      text-decoration: none;
-      padding: 14px 20px;
-      border-radius: 999px;
-      font-weight: 700;
-    }
-
-    footer {
-      margin-top: 36px;
-      color: var(--steel);
-      font-size: 13px;
-      border-top: 1px solid var(--border);
-      padding-top: 18px;
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid, .two-col, .cta { grid-template-columns: 1fr; }
-      .cards, .stack, .metrics { grid-template-columns: 1fr 1fr; }
-      .button { justify-self: start; }
-    }
-
-    @media (max-width: 560px) {
-      .page { padding: 0 18px 42px; }
-      .cards, .stack, .metrics { grid-template-columns: 1fr; }
-      header { padding-top: 38px; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="The IT Elevation Enterprise Architecture program aligns business capabilities, technology investments, architecture standards, and transformation roadmaps.">
+  <title>Enterprise Architecture | IT Elevation™</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/program.css">
 </head>
-<body>
-  <main class="page">
-    <header>
-      <div class="eyebrow">IT Elevation | Architecture Layer</div>
-      <div class="hero-grid">
-        <div>
-          <h1>Enterprise Architecture</h1>
-          <p class="hero-text">
-            Establish the enterprise blueprint, standards, and decision discipline required to simplify technology, align investments, and create a scalable foundation for transformation.
-          </p>
-          <div class="pill-row">
-            <span class="pill">Business Capability Alignment</span>
-            <span class="pill">Architecture Governance</span>
-            <span class="pill">Technology Roadmaps</span>
-            <span class="pill">Standards & Reuse</span>
+
+<body class="program-page">
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo">IT Elevation™</a>
+        <ul>
+          <li><a href="ITE.html">Framework</a></li>
+          <li><a href="Governance.html">Governance</a></li>
+          <li><a href="Architecture.html">Architecture</a></li>
+          <li><a href="Delivery.html">Delivery</a></li>
+          <li><a href="Orchestration.html">Orchestration</a></li>
+          <li><a href="#assessment">Assessment</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-layout">
+        <div class="hero-content">
+          <div class="eyebrow program-eyebrow">Architecture Layer · Program 01</div>
+          <h1>Build the enterprise blueprint for scalable transformation.</h1>
+          <p>Align business capabilities, technology investments, application portfolios, data, and integration into a
+            coherent architecture that reduces complexity and guides long-term business change.</p>
+          <div class="hero-buttons">
+            <a href="#program" class="btn btn-primary">Explore the Program</a>
+            <a href="#approach" class="btn btn-secondary">Start with an Assessment</a>
           </div>
         </div>
         <div class="hero-card">
-          <h2>Program Purpose</h2>
-          <p>
-            Build a practical Enterprise Architecture capability that connects business strategy, capabilities, platforms, data, integration, and technology investments into a clear transformation direction.
-          </p>
+          <h2>Enterprise Architecture</h2>
+          <p>Connect business strategy and technology decisions through a practical enterprise blueprint, shared
+            standards, and a prioritized transformation roadmap.</p>
+          <div class="portfolio">
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Business Capability Alignment</strong>
+                <p>Connect technology to business priorities</p>
+              </div>
+            </div>
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Architecture Governance</strong>
+                <p>Clarify principles and decision rights</p>
+              </div>
+            </div>
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Standards &amp; Reuse</strong>
+                <p>Reduce duplication and fragmentation</p>
+              </div>
+            </div>
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Technology Roadmaps</strong>
+                <p>Sequence change toward target state</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </header>
+    </div>
+  </section>
 
-    <section>
-      <h2 class="section-title">Why it matters</h2>
-      <p class="section-intro">
-        Enterprise Architecture helps organizations reduce complexity, prevent fragmented decisions, and ensure technology investments support the business capabilities that matter most.
-      </p>
-      <div class="cards">
-        <article class="card">
-          <h3>Common Challenge</h3>
-          <p>Technology decisions are often made project by project, creating duplicated platforms, inconsistent standards, unclear ownership, and limited visibility into the future-state architecture.</p>
-        </article>
-        <article class="card">
-          <h3>Business Impact</h3>
-          <p>Complexity increases cost, slows delivery, creates integration friction, and makes it harder for leaders to prioritize investments with confidence.</p>
-        </article>
-        <article class="card">
-          <h3>Program Outcome</h3>
-          <p>A business-aligned architecture model that clarifies the current state, defines the target state, and guides transformation through standards, roadmaps, and governance.</p>
-        </article>
+  <main>
+    <section id="program" class="program-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Why this program matters</div>
+          <h2>Move from project-by-project technology decisions to a coherent enterprise direction.</h2>
+          <p class="lead">As organizations grow, technology decisions can create duplicated platforms, inconsistent
+            standards, unclear dependencies, and limited visibility into the future state. Enterprise Architecture
+            provides the structure to align technology with the business capabilities that matter most.</p>
+        </div>
+        <div class="program-grid">
+          <article class="program-card"><span class="tag">Pain point 01</span>
+            <h3>Fragmented landscape</h3>
+            <p>Applications, platforms, and integrations evolve independently, increasing complexity and limiting reuse.
+            </p>
+          </article>
+          <article class="program-card"><span class="tag">Pain point 02</span>
+            <h3>Unclear direction</h3>
+            <p>Without a shared target state, teams make local decisions that may conflict with enterprise priorities.
+            </p>
+          </article>
+          <article class="program-card"><span class="tag">Pain point 03</span>
+            <h3>Duplicated investment</h3>
+            <p>Overlapping capabilities and inconsistent standards can increase cost, risk, and delivery friction.</p>
+          </article>
+          <article class="program-card"><span class="tag">Pain point 04</span>
+            <h3>Complex modernization</h3>
+            <p>Legacy dependencies and unclear sequencing make it harder to modernize without disrupting operations.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">What the program helps you build</h2>
-      <div class="two-col">
-        <div class="card">
-          <h3>Core Capabilities</h3>
-          <ul class="list">
-            <li>Business capability mapping connected to applications, data, platforms, integrations, and investments.</li>
-            <li>Current-state and target-state architecture views that make complexity visible and actionable.</li>
-            <li>Architecture principles, standards, reference models, and decision guardrails.</li>
-            <li>Roadmaps, governance routines, and architecture review processes that align execution with strategy.</li>
+    <section class="program-section section-light">
+      <div class="container program-split">
+        <div class="program-panel">
+          <div class="section-label">Program purpose</div>
+          <h2>Create a business-aligned blueprint that guides technology decisions.</h2>
+          <p>The Enterprise Architecture program connects strategy, capabilities, applications, data, integration,
+            platforms, and technology investments into a clear transformation direction supported by practical
+            governance.</p>
+        </div>
+        <div class="program-grid grid-2">
+          <article class="program-card">
+            <h3>Business capability mapping</h3>
+            <p>Connect business capabilities and strategic outcomes to the applications, data, platforms, and
+              investments that enable them.</p>
+          </article>
+          <article class="program-card">
+            <h3>Current- and target-state views</h3>
+            <p>Make the existing landscape, dependencies, complexity, and desired future state visible and actionable.
+            </p>
+          </article>
+          <article class="program-card">
+            <h3>Architecture principles and standards</h3>
+            <p>Define reference models, reusable standards, decision guardrails, and exception handling.</p>
+          </article>
+          <article class="program-card">
+            <h3>Roadmaps and governance</h3>
+            <p>Prioritize modernization, establish architecture review routines, and align execution with business
+              direction.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Client deliverables</div>
+          <h2>Practical assets that turn architecture insight into enterprise decisions.</h2>
+          <p class="lead">A reusable set of architecture views, standards, governance routines, and roadmaps helps
+            leaders understand the current landscape and make informed choices about what to change next.</p>
+        </div>
+        <div class="program-grid grid-3">
+          <article class="program-card">
+            <h3>Enterprise Architecture Blueprint</h3>
+            <p>Current-state and target-state views across business capabilities, applications, data, integrations,
+              platforms, and ownership.</p>
+          </article>
+          <article class="program-card">
+            <h3>Architecture Standards &amp; Governance</h3>
+            <p>Principles, reference models, decision rights, review routines, standards adoption, and an
+              exception-management approach.</p>
+          </article>
+          <article class="program-card">
+            <h3>Modernization Roadmap</h3>
+            <p>Prioritized initiatives, dependencies, sequencing, investment themes, and measurable outcomes for
+              simplification and transformation.</p>
+          </article>
+          <article class="program-card">
+            <h3>Business Capability Map</h3>
+            <p>A view of business capabilities linked to supporting systems, technology dependencies, ownership, and
+              strategic importance.</p>
+          </article>
+          <article class="program-card">
+            <h3>Application &amp; Technology Landscape</h3>
+            <p>A structured inventory of major systems, platforms, integrations, duplication, risk, and modernization
+              opportunities.</p>
+          </article>
+          <article class="program-card">
+            <h3>Architecture Decision Framework</h3>
+            <p>Decision criteria, architecture review practices, escalation paths, and reusable patterns to support
+              consistent choices.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section section-blue">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Transformation journey</div>
+          <h2>Eight steps from landscape assessment to continuous architecture improvement.</h2>
+          <p class="lead">The journey can begin with a focused assessment and grow into an operating capability that
+            guides modernization, simplification, and business alignment.</p>
+        </div>
+        <div class="program-journey">
+          <article class="program-step">
+            <h3>Assess current state</h3>
+            <p>Review business priorities, capabilities, applications, data flows, integrations, platforms, and known
+              pain points.</p>
+          </article>
+          <article class="program-step">
+            <h3>Map the landscape</h3>
+            <p>Connect capabilities, systems, data, integrations, ownership, cost, risk, and business value.</p>
+          </article>
+          <article class="program-step">
+            <h3>Align stakeholders</h3>
+            <p>Agree on architecture principles, target outcomes, decision rights, and modernization priorities.</p>
+          </article>
+          <article class="program-step">
+            <h3>Design target state</h3>
+            <p>Define target architecture, reference models, standards, platform direction, and simplification
+              opportunities.</p>
+          </article>
+          <article class="program-step">
+            <h3>Prioritize initiatives</h3>
+            <p>Rank architecture gaps by business value, complexity reduction, risk, dependencies, and feasibility.</p>
+          </article>
+          <article class="program-step">
+            <h3>Build the roadmap</h3>
+            <p>Sequence initiatives, dependencies, milestones, investment needs, and expected outcomes.</p>
+          </article>
+          <article class="program-step">
+            <h3>Activate governance</h3>
+            <p>Launch architecture reviews, decision forums, exception management, and standards adoption across
+              delivery teams.</p>
+          </article>
+          <article class="program-step">
+            <h3>Improve continuously</h3>
+            <p>Refresh architecture views, standards, and roadmaps as business priorities and technology conditions
+              evolve.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Success measures</div>
+          <h2>Measure alignment, simplification, governance, and roadmap execution.</h2>
+          <p class="lead">Select measures that reflect the organization’s capabilities, technology landscape, and
+            transformation priorities.</p>
+        </div>
+        <div class="program-grid grid-3">
+          <article class="program-card program-metric">
+            <h3>Alignment</h3>
+            <p>Business capabilities mapped to technology investments and architecture priorities.</p>
+          </article>
+          <article class="program-card program-metric">
+            <h3>Simplification</h3>
+            <p>Redundant applications, platforms, and integrations identified for rationalization.</p>
+          </article>
+          <article class="program-card program-metric">
+            <h3>Governance &amp; roadmap</h3>
+            <p>Architecture decisions managed through clear standards and review cadence, with modernization initiatives
+              sequenced against dependencies and outcomes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach" class="program-section section-light">
+      <div class="container program-mvp">
+        <div>
+          <div class="section-head">
+            <div class="section-label">Start small, prove value</div>
+            <h2>Start with a focused architecture assessment.</h2>
+            <p class="lead">A focused assessment reveals where complexity is slowing the organization down, which
+              architecture decisions need governance, and where modernization can deliver the most business value.</p>
+          </div>
+          <ul class="program-mvp-list">
+            <li>Map a selected set of critical business capabilities and supporting systems.</li>
+            <li>Identify duplication, major dependencies, technical risks, and architecture gaps.</li>
+            <li>Agree on target-state principles and the most important decision guardrails.</li>
+            <li>Prioritize a small set of modernization and simplification opportunities.</li>
+            <li>Define a practical roadmap and governance cadence to guide next steps.</li>
           </ul>
         </div>
-        <div class="card">
-          <h3>Client Value</h3>
-          <ul class="list">
-            <li>Improved visibility into technology complexity, redundancy, risk, and modernization priorities.</li>
-            <li>Stronger alignment between business strategy, investment decisions, and technology execution.</li>
-            <li>Reduced duplication through reuse, standardization, and clearer platform direction.</li>
-            <li>Faster decision-making through architecture principles, governance, and executive-ready roadmaps.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Transformation journey</h2>
-      <p class="section-intro">
-        The program can start with a focused architecture assessment and evolve into an operating capability that continuously guides modernization, simplification, and business alignment.
-      </p>
-      <div class="stack">
-        <div class="step"><strong>1. Assess</strong>Review business priorities, capability needs, application landscape, data flows, integrations, platforms, and known pain points.</div>
-        <div class="step"><strong>2. Map</strong>Create current-state views that connect capabilities, systems, data, integrations, ownership, cost, risk, and business value.</div>
-        <div class="step"><strong>3. Align</strong>Align business and technology leaders on architecture principles, target outcomes, decision rights, and modernization priorities.</div>
-        <div class="step"><strong>4. Design</strong>Define target-state architecture, reference models, standards, platform direction, and simplification opportunities.</div>
-        <div class="step"><strong>5. Prioritize</strong>Translate architecture gaps into initiatives based on business value, complexity reduction, risk, dependency, and feasibility.</div>
-        <div class="step"><strong>6. Roadmap</strong>Create a phased architecture roadmap that connects initiatives, dependencies, milestones, investment needs, and expected outcomes.</div>
-        <div class="step"><strong>7. Govern</strong>Launch architecture review routines, decision forums, exception management, and standards adoption across delivery teams.</div>
-        <div class="step"><strong>8. Improve</strong>Continuously refresh architecture views, standards, and roadmaps as business priorities and technology conditions evolve.</div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Typical deliverables</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Enterprise Architecture Blueprint</h3>
-          <p>Current-state and target-state views across capabilities, applications, data, integrations, platforms, and ownership.</p>
-        </article>
-        <article class="card">
-          <h3>Architecture Standards & Governance</h3>
-          <p>Principles, reference models, decision rights, review routines, standards, and exception management approach.</p>
-        </article>
-        <article class="card">
-          <h3>Modernization Roadmap</h3>
-          <p>Prioritized initiatives, dependencies, sequencing, investment themes, and measurable outcomes for simplification and transformation.</p>
+        <article class="program-card"><span class="tag">Typical assessment outputs</span>
+          <h3>A clear direction for architecture change</h3>
+          <p>Current-state findings, capability-to-system map, key architecture risks, target-state principles,
+            prioritized opportunities, roadmap outline, and recommended governance routines.</p>
         </article>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">Success measures</h2>
-      <div class="metrics">
-        <div class="metric"><span>Alignment</span><strong>Business capabilities mapped to technology investments and architecture priorities</strong></div>
-        <div class="metric"><span>Simplification</span><strong>Redundant applications, platforms, and integrations identified for rationalization</strong></div>
-        <div class="metric"><span>Governance</span><strong>Architecture decisions managed through clear standards, ownership, and review cadence</strong></div>
-        <div class="metric"><span>Roadmap</span><strong>Modernization initiatives sequenced with dependencies, value, and measurable outcomes</strong></div>
+    <section id="assessment" class="program-cta">
+      <div class="container program-cta-inner">
+        <div class="section-label">Enterprise Architecture · Architecture Layer</div>
+        <h2>Ready to simplify complexity and align technology with business direction?</h2>
+        <p>Enterprise Architecture helps organizations create a coherent blueprint, make better technology decisions,
+          and guide modernization toward measurable business outcomes.</p>
+        <a href="mailto:info@itelevation.net?subject=Enterprise%20Architecture%20Program%20Discussion"
+          class="btn btn-primary">Schedule a Discovery Conversation</a>
       </div>
     </section>
-
-    <section class="cta">
-      <div>
-        <h2>Create the enterprise blueprint for scalable transformation.</h2>
-        <p>
-          Enterprise Architecture helps technology leaders simplify complexity, align investments, and guide execution through a clear, business-driven architecture model.
-        </p>
-      </div>
-      <a class="button" href="#">Start the conversation</a>
-    </section>
-
-    <footer>
-      IT Elevation | Architecture Layer | Enterprise Architecture
-    </footer>
   </main>
+
+  <footer class="program-footer">
+    <div class="container footer-inner"><span>IT Elevation™ · Architecture Layer · Enterprise Architecture</span><a
+        href="Architecture.html">Back to Architecture</a></div>
+  </footer>
 </body>
+
 </html>

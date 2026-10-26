@@ -1,379 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IT Elevation | Infrastructure Architecture</title>
-  <style>
-    :root {
-      --graphite: #1C1F26;
-      --blue: #0B3D91;
-      --steel: #6B7280;
-      --light: #F4F6F8;
-      --white: #FFFFFF;
-      --border: #E5E7EB;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--graphite);
-      background: var(--white);
-      line-height: 1.55;
-    }
-
-    .page {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 28px 56px;
-    }
-
-    header {
-      padding: 56px 0 36px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .eyebrow {
-      color: var(--blue);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 13px;
-      margin-bottom: 14px;
-    }
-
-    h1 {
-      font-size: clamp(36px, 5vw, 58px);
-      line-height: 1.05;
-      margin: 0 0 18px;
-      letter-spacing: -0.04em;
-    }
-
-    .hero-text {
-      max-width: 760px;
-      font-size: 20px;
-      color: #374151;
-      margin-bottom: 30px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .hero-card {
-      background: var(--light);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 26px;
-    }
-
-    .hero-card h2 {
-      margin-top: 0;
-      font-size: 24px;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .pill {
-      border: 1px solid rgba(11,61,145,0.22);
-      color: var(--blue);
-      background: rgba(11,61,145,0.06);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    section { padding: 42px 0 0; }
-
-    .section-title {
-      font-size: 30px;
-      margin: 0 0 12px;
-      letter-spacing: -0.025em;
-    }
-
-    .section-intro {
-      max-width: 820px;
-      color: #4B5563;
-      font-size: 17px;
-      margin: 0 0 24px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-      background: var(--white);
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 19px;
-      color: var(--blue);
-    }
-
-    .card p { margin: 0; color: #4B5563; }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-    }
-
-    .list {
-      margin: 0;
-      padding-left: 20px;
-      color: #374151;
-    }
-
-    .list li { margin-bottom: 10px; }
-
-    .stack {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .step {
-      background: var(--light);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      min-height: 130px;
-    }
-
-    .step strong {
-      display: block;
-      color: var(--blue);
-      margin-bottom: 8px;
-    }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .metric {
-      background: var(--graphite);
-      color: var(--white);
-      border-radius: 18px;
-      padding: 22px;
-      min-height: 135px;
-    }
-
-    .metric span {
-      display: block;
-      font-size: 13px;
-      color: #D1D5DB;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .metric strong {
-      font-size: 20px;
-      line-height: 1.25;
-    }
-
-    .cta {
-      margin-top: 46px;
-      background: linear-gradient(135deg, var(--graphite), var(--blue));
-      color: var(--white);
-      border-radius: 28px;
-      padding: 36px;
-      display: grid;
-      grid-template-columns: 1.6fr 0.8fr;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .cta h2 {
-      margin: 0 0 12px;
-      font-size: 32px;
-      letter-spacing: -0.025em;
-    }
-
-    .cta p { margin: 0; color: #E5E7EB; font-size: 17px; }
-
-    .button {
-      display: inline-block;
-      justify-self: end;
-      background: var(--white);
-      color: var(--blue);
-      text-decoration: none;
-      padding: 14px 20px;
-      border-radius: 999px;
-      font-weight: 700;
-    }
-
-    footer {
-      margin-top: 36px;
-      color: var(--steel);
-      font-size: 13px;
-      border-top: 1px solid var(--border);
-      padding-top: 18px;
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid, .two-col, .cta { grid-template-columns: 1fr; }
-      .cards, .stack, .metrics { grid-template-columns: 1fr 1fr; }
-      .button { justify-self: start; }
-    }
-
-    @media (max-width: 560px) {
-      .page { padding: 0 18px 42px; }
-      .cards, .stack, .metrics { grid-template-columns: 1fr; }
-      header { padding-top: 38px; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="The IT Elevation Infrastructure Architecture program defines resilient, secure, scalable, and cost-effective infrastructure foundations for enterprise technology and transformation.">
+  <title>Infrastructure Architecture | IT Elevation™</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/program.css">
 </head>
-<body>
-  <main class="page">
-    <header>
-      <div class="eyebrow">IT Elevation | Architecture Layer</div>
-      <div class="hero-grid">
-        <div>
-          <h1>Infrastructure Architecture</h1>
-          <p class="hero-text">
-            Design the infrastructure foundation required to operate resilient, scalable, secure, and cost-effective technology environments across cloud, hybrid, network, workplace, and enterprise platforms.
-          </p>
-          <div class="pill-row">
-            <span class="pill">Cloud & Hybrid Foundation</span>
-            <span class="pill">Resilience</span>
-            <span class="pill">Platform Stability</span>
-            <span class="pill">Operational Readiness</span>
+
+<body class="program-page">
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo">IT Elevation™</a>
+        <ul>
+          <li><a href="ITE.html">Framework</a></li>
+          <li><a href="Governance.html">Governance</a></li>
+          <li><a href="Architecture.html">Architecture</a></li>
+          <li><a href="Delivery.html">Delivery</a></li>
+          <li><a href="Orchestration.html">Orchestration</a></li>
+          <li><a href="#assessment">Assessment</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-layout">
+        <div class="hero-content">
+          <div class="eyebrow program-eyebrow">Architecture Layer · Program 04</div>
+          <h1>Design resilient infrastructure that enables transformation to scale.</h1>
+          <p>Design the infrastructure foundation required to operate resilient, scalable, secure, and cost-effective
+            technology environments across cloud, hybrid, network, workplace, and enterprise platforms.</p>
+          <div class="hero-buttons">
+            <a href="#program" class="btn btn-primary">Explore the Program</a>
+            <a href="#approach" class="btn btn-secondary">Start with an Assessment</a>
           </div>
         </div>
         <div class="hero-card">
-          <h2>Program Purpose</h2>
-          <p>
-            Build a practical Infrastructure Architecture capability that aligns infrastructure decisions, standards, capacity, resilience, security, and operations with the business outcomes technology must support.
-          </p>
+          <h2>Infrastructure Architecture</h2>
+          <p>Align infrastructure decisions, standards, capacity, resilience, security, and operations with the business
+            outcomes technology must support.</p>
+          <div class="portfolio">
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Cloud &amp; Hybrid Foundation</strong>
+                <p>Build a consistent infrastructure foundation</p>
+              </div>
+            </div>
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Resilience &amp; Availability</strong>
+                <p>Protect business-critical services</p>
+              </div>
+            </div>
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Capacity &amp; Performance</strong>
+                <p>Plan for demand and growth</p>
+              </div>
+            </div>
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Operational Readiness</strong>
+                <p>Connect architecture to operations</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </header>
+    </div>
+  </section>
 
-    <section>
-      <h2 class="section-title">Why it matters</h2>
-      <p class="section-intro">
-        Infrastructure Architecture helps organizations move from reactive infrastructure decisions and fragmented environments toward a clear foundation that supports performance, resilience, security, scalability, and predictable operations.
-      </p>
-      <div class="cards">
-        <article class="card">
-          <h3>Common Challenge</h3>
-          <p>Infrastructure often grows through project-by-project decisions, resulting in inconsistent standards, limited visibility, capacity constraints, operational complexity, and avoidable resilience risk.</p>
-        </article>
-        <article class="card">
-          <h3>Business Impact</h3>
-          <p>Weak infrastructure architecture can slow delivery, increase outages, raise operating costs, expose security gaps, limit scalability, and reduce confidence in modernization initiatives.</p>
-        </article>
-        <article class="card">
-          <h3>Program Outcome</h3>
-          <p>A clear infrastructure blueprint with platform standards, target-state patterns, resilience expectations, capacity planning, operational controls, and a modernization roadmap.</p>
-        </article>
+  <main>
+    <section id="program" class="program-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Why this program matters</div>
+          <h2>Move from reactive infrastructure decisions to a resilient, scalable, and cost-effective foundation.</h2>
+          <p class="lead">Infrastructure that evolves project by project can create inconsistent standards, capacity
+            constraints, operational complexity, avoidable resilience risks, and rising costs. Infrastructure
+            Architecture establishes target-state patterns and practical guardrails for reliable, secure, scalable
+            operations.</p>
+        </div>
+        <div class="program-grid">
+          <article class="program-card"><span class="tag">Pain point 01</span>
+            <h3>Fragmented infrastructure</h3>
+            <p>Infrastructure grows through project-by-project decisions, creating inconsistent environments, limited
+              visibility, and avoidable support complexity.</p>
+          </article>
+          <article class="program-card"><span class="tag">Pain point 02</span>
+            <h3>Capacity and performance constraints</h3>
+            <p>Limited capacity planning and inconsistent platform patterns make it harder to meet service expectations
+              as demand grows.</p>
+          </article>
+          <article class="program-card"><span class="tag">Pain point 03</span>
+            <h3>Resilience and recovery gaps</h3>
+            <p>Unclear availability, backup, recovery, and operational requirements can increase outage impact and
+              recovery time.</p>
+          </article>
+          <article class="program-card"><span class="tag">Pain point 04</span>
+            <h3>Cost and operational complexity</h3>
+            <p>Underused resources, manual operations, and inconsistent standards increase costs and make modernization
+              harder to manage.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">What the program helps you build</h2>
-      <div class="two-col">
-        <div class="card">
-          <h3>Core Capabilities</h3>
-          <ul class="list">
-            <li>Infrastructure current-state assessment across cloud, data center, network, identity, endpoint, storage, backup, monitoring, and platform services.</li>
-            <li>Target-state infrastructure architecture principles, standards, patterns, reference models, and design guardrails.</li>
-            <li>Resilience, availability, disaster recovery, capacity, performance, observability, security, and operational readiness models.</li>
-            <li>Modernization roadmap that prioritizes infrastructure simplification, cloud/hybrid optimization, automation, reliability, and cost transparency.</li>
+    <section class="program-section section-light">
+      <div class="container program-split">
+        <div class="program-panel">
+          <div class="section-label">Program purpose</div>
+          <h2>Create a resilient infrastructure foundation aligned to business needs and service expectations.</h2>
+          <p>The Infrastructure Architecture program defines infrastructure standards, target-state patterns, capacity
+            and resilience expectations, security guardrails, and operational readiness. It connects infrastructure
+            decisions to business criticality, service needs, and long-term modernization.</p>
+        </div>
+        <div class="program-grid grid-2">
+          <article class="program-card">
+            <h3>Infrastructure standards and patterns</h3>
+            <p>Define preferred cloud, hybrid, network, identity, storage, backup, and platform patterns with clear
+              design guardrails.</p>
+          </article>
+          <article class="program-card">
+            <h3>Resilience and service continuity</h3>
+            <p>Set availability, recovery, backup, disaster recovery, and resilience expectations for business-critical
+              services.</p>
+          </article>
+          <article class="program-card">
+            <h3>Capacity, performance, and security</h3>
+            <p>Connect capacity planning, performance, identity, security controls, and observability to business
+              service requirements.</p>
+          </article>
+          <article class="program-card">
+            <h3>Operational readiness and optimization</h3>
+            <p>Prioritize modernization, automation, cost transparency, and operating controls through roadmaps and
+              architecture reviews.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Client deliverables</div>
+          <h2>Practical assets that make infrastructure reliable, scalable, and easier to govern.</h2>
+          <p class="lead">A reusable set of infrastructure standards, resilience requirements, capacity practices, and
+            roadmaps helps teams reduce operational friction, manage risk, and evolve platforms deliberately.</p>
+        </div>
+        <div class="program-grid grid-3">
+          <article class="program-card">
+            <h3>Infrastructure Architecture Blueprint</h3>
+            <p>Current-state and target-state views across cloud and hybrid environments, networks, identity, storage,
+              platforms, resilience, observability, and dependencies.</p>
+          </article>
+          <article class="program-card">
+            <h3>Infrastructure Standards &amp; Operating Guardrails</h3>
+            <p>Infrastructure principles, reference patterns, security guardrails, resilience requirements, capacity
+              practices, and operational readiness criteria.</p>
+          </article>
+          <article class="program-card">
+            <h3>Infrastructure Modernization Roadmap</h3>
+            <p>Prioritized initiatives for stability, cloud and hybrid optimization, automation, resilience,
+              observability, cost transparency, and technical debt reduction.</p>
+          </article>
+          <article class="program-card">
+            <h3>Infrastructure &amp; Platform Inventory</h3>
+            <p>A structured view of cloud, data center, network, identity, endpoint, storage, backup, monitoring,
+              owners, dependencies, and risks.</p>
+          </article>
+          <article class="program-card">
+            <h3>Resilience &amp; Recovery Model</h3>
+            <p>Availability targets, recovery expectations, backup and disaster recovery patterns, resilience checks,
+              and service continuity responsibilities.</p>
+          </article>
+          <article class="program-card">
+            <h3>Capacity &amp; Operational Readiness Framework</h3>
+            <p>Capacity and performance practices, observability expectations, operational readiness gates, cost
+              visibility, and infrastructure review routines.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section section-blue">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Transformation journey</div>
+          <h2>Eight steps from infrastructure assessment to resilient, scalable operations.</h2>
+          <p class="lead">The journey can begin with a focused infrastructure assessment and grow into a repeatable
+            capability that improves stability, scalability, resilience, cost visibility, and operating performance.</p>
+        </div>
+        <div class="program-journey">
+          <article class="program-step">
+            <h3>Assess infrastructure landscape</h3>
+            <p>Review infrastructure, business-critical services, technology constraints, operational pain points, risk
+              areas, performance gaps, and modernization drivers.</p>
+          </article>
+          <article class="program-step">
+            <h3>Map infrastructure dependencies</h3>
+            <p>Document cloud, data center, network, identity, endpoint, storage, monitoring, backup, and platform
+              dependencies.</p>
+          </article>
+          <article class="program-step">
+            <h3>Align service expectations</h3>
+            <p>Align business, IT, security, operations, and architecture leaders on priorities, service expectations,
+              resilience needs, and investment trade-offs.</p>
+          </article>
+          <article class="program-step">
+            <h3>Design target-state infrastructure</h3>
+            <p>Define infrastructure patterns, platform standards, security guardrails, resilience models, and
+              operational readiness criteria.</p>
+          </article>
+          <article class="program-step">
+            <h3>Prioritize infrastructure gaps</h3>
+            <p>Rank initiatives by business criticality, risk reduction, cost impact, scalability needs, technical
+              feasibility, and dependency complexity.</p>
+          </article>
+          <article class="program-step">
+            <h3>Build the infrastructure roadmap</h3>
+            <p>Sequence modernization, cloud and hybrid optimization, resilience improvement, observability, automation,
+              and operating model maturity.</p>
+          </article>
+          <article class="program-step">
+            <h3>Embed infrastructure governance</h3>
+            <p>Launch architecture reviews, standards adoption, capacity reviews, resilience checks, operational
+              readiness gates, and infrastructure decision forums.</p>
+          </article>
+          <article class="program-step">
+            <h3>Improve continuously</h3>
+            <p>Refresh standards, reference patterns, platform choices, and roadmaps as technology and business needs
+              evolve.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Success measures</div>
+          <h2>Measure stability, scalability, risk, and operational efficiency.</h2>
+          <p class="lead">Select measures that reflect service criticality, infrastructure demand, resilience
+            requirements, operating costs, and modernization priorities.</p>
+        </div>
+        <div class="program-grid grid-3">
+          <article class="program-card program-metric">
+            <h3>Stability</h3>
+            <p>Critical platforms supported by clear architecture standards, resilience expectations, and operating
+              controls.</p>
+          </article>
+          <article class="program-card program-metric">
+            <h3>Scalability</h3>
+            <p>Infrastructure capacity, performance, and cloud or hybrid patterns aligned to business growth and demand.
+            </p>
+          </article>
+          <article class="program-card program-metric">
+            <h3>Risk &amp; efficiency</h3>
+            <p>Availability, recovery, security, cost, and operational risks managed through clear ownership and a
+              prioritized roadmap.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach" class="program-section section-light">
+      <div class="container program-mvp">
+        <div>
+          <div class="section-head">
+            <div class="section-label">Start small, prove value</div>
+            <h2>Start with a focused infrastructure architecture assessment.</h2>
+            <p class="lead">A focused assessment identifies infrastructure constraints, resilience and capacity gaps,
+              operational risks, cost inefficiencies, and the standards and roadmap needed to improve reliability.</p>
+          </div>
+          <ul class="program-mvp-list">
+            <li>Inventory critical infrastructure, cloud and hybrid environments, networks, platforms, and dependencies.
+            </li>
+            <li>Identify resilience gaps, capacity constraints, operational risks, cost inefficiencies, and
+              modernization dependencies.</li>
+            <li>Define infrastructure standards, resilience expectations, security guardrails, and operational readiness
+              criteria.</li>
+            <li>Prioritize a small set of infrastructure modernization, cloud or hybrid optimization, and risk-reduction
+              actions.</li>
+            <li>Define a practical infrastructure roadmap, capacity review, and architecture governance cadence.</li>
           </ul>
         </div>
-        <div class="card">
-          <h3>Client Value</h3>
-          <ul class="list">
-            <li>Improved stability and resilience for business-critical applications, platforms, data flows, and digital services.</li>
-            <li>Clearer infrastructure decisions through shared standards, patterns, governance, and architecture review routines.</li>
-            <li>Reduced operational friction, technical debt, cost leakage, and risk across infrastructure environments.</li>
-            <li>Stronger foundation for cloud adoption, modernization, cybersecurity, automation, observability, and enterprise scale.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Transformation journey</h2>
-      <p class="section-intro">
-        The program can begin with a targeted infrastructure assessment and evolve into a repeatable capability that continuously improves platform stability, scalability, resilience, and operating performance.
-      </p>
-      <div class="stack">
-        <div class="step"><strong>1. Assess</strong>Review infrastructure landscape, business-critical services, technology constraints, operational pain points, risk areas, performance gaps, and modernization drivers.</div>
-        <div class="step"><strong>2. Map</strong>Create current-state views across cloud, data center, network, identity, endpoint, storage, monitoring, backup, integration, and platform dependencies.</div>
-        <div class="step"><strong>3. Align</strong>Align business, IT, security, operations, and architecture leaders on infrastructure priorities, service expectations, resilience needs, and investment trade-offs.</div>
-        <div class="step"><strong>4. Design</strong>Define target-state infrastructure architecture, reference patterns, platform standards, security guardrails, resilience model, and operational readiness criteria.</div>
-        <div class="step"><strong>5. Prioritize</strong>Translate infrastructure gaps into initiatives based on business criticality, risk reduction, cost impact, scalability need, technical feasibility, and dependency complexity.</div>
-        <div class="step"><strong>6. Roadmap</strong>Create a phased roadmap for modernization, cloud/hybrid optimization, resilience improvement, observability, automation, and operating model maturity.</div>
-        <div class="step"><strong>7. Govern</strong>Launch architecture review routines, standards adoption, capacity reviews, resilience checks, operational readiness gates, and infrastructure decision forums.</div>
-        <div class="step"><strong>8. Improve</strong>Continuously refine standards, platform patterns, risk posture, cost visibility, capacity assumptions, and infrastructure roadmap priorities as needs evolve.</div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Typical deliverables</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Infrastructure Architecture Blueprint</h3>
-          <p>Current-state and target-state views across platforms, cloud/hybrid environments, networks, identity, storage, resilience, observability, and dependencies.</p>
-        </article>
-        <article class="card">
-          <h3>Standards & Operating Guardrails</h3>
-          <p>Infrastructure principles, reference patterns, architecture standards, security guardrails, resilience requirements, capacity practices, and operational readiness criteria.</p>
-        </article>
-        <article class="card">
-          <h3>Infrastructure Modernization Roadmap</h3>
-          <p>Prioritized initiatives for stability, cloud/hybrid optimization, automation, resilience, observability, cost transparency, and technical debt reduction.</p>
+        <article class="program-card"><span class="tag">Typical assessment outputs</span>
+          <h3>A practical infrastructure plan</h3>
+          <p>Infrastructure inventory, resilience and capacity gaps, priority risk actions, recommended standards,
+            roadmap outline, and governance recommendations.</p>
         </article>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">Success measures</h2>
-      <div class="metrics">
-        <div class="metric"><span>Stability</span><strong>Critical platforms supported by clear architecture standards, resilience expectations, and operating controls</strong></div>
-        <div class="metric"><span>Scalability</span><strong>Infrastructure capacity, performance, and cloud/hybrid patterns aligned to business growth and demand</strong></div>
-        <div class="metric"><span>Risk</span><strong>Availability, recovery, security, and operational risks identified, prioritized, and managed through governance</strong></div>
-        <div class="metric"><span>Efficiency</span><strong>Modernization roadmap reduces complexity, cost leakage, manual work, and avoidable technical debt</strong></div>
+    <section id="assessment" class="program-cta">
+      <div class="container program-cta-inner">
+        <div class="section-label">Infrastructure Architecture · Architecture Layer</div>
+        <h2>Ready to build a resilient foundation for enterprise scale?</h2>
+        <p>Infrastructure Architecture helps organizations improve stability, resilience, scalability, and cost
+          visibility while modernizing the foundation beneath applications, data, security, and operations.</p>
+        <a href="mailto:info@itelevation.net?subject=Infrastructure%20Architecture%20Program%20Discussion"
+          class="btn btn-primary">Schedule a Discovery Conversation</a>
       </div>
     </section>
-
-    <section class="cta">
-      <div>
-        <h2>Create a resilient foundation for enterprise scale.</h2>
-        <p>
-          Infrastructure Architecture helps technology leaders modernize the foundation beneath applications, data, security, and operations so transformation can scale with stability, visibility, and confidence.
-        </p>
-      </div>
-      <a class="button" href="#">Start the conversation</a>
-    </section>
-
-    <footer>
-      IT Elevation | Architecture Layer | Infrastructure Architecture
-    </footer>
   </main>
+
+  <footer class="program-footer">
+    <div class="container footer-inner"><span>IT Elevation™ · Architecture Layer · Infrastructure Architecture</span><a
+        href="Architecture.html">Back to Architecture</a></div>
+  </footer>
 </body>
+
 </html>

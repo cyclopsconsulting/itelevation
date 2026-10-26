@@ -1,379 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IT Elevation | Data Architecture</title>
-  <style>
-    :root {
-      --graphite: #1C1F26;
-      --blue: #0B3D91;
-      --steel: #6B7280;
-      --light: #F4F6F8;
-      --white: #FFFFFF;
-      --border: #E5E7EB;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--graphite);
-      background: var(--white);
-      line-height: 1.55;
-    }
-
-    .page {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 28px 56px;
-    }
-
-    header {
-      padding: 56px 0 36px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .eyebrow {
-      color: var(--blue);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 13px;
-      margin-bottom: 14px;
-    }
-
-    h1 {
-      font-size: clamp(36px, 5vw, 58px);
-      line-height: 1.05;
-      margin: 0 0 18px;
-      letter-spacing: -0.04em;
-    }
-
-    .hero-text {
-      max-width: 760px;
-      font-size: 20px;
-      color: #374151;
-      margin-bottom: 30px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .hero-card {
-      background: var(--light);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 26px;
-    }
-
-    .hero-card h2 {
-      margin-top: 0;
-      font-size: 24px;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .pill {
-      border: 1px solid rgba(11,61,145,0.22);
-      color: var(--blue);
-      background: rgba(11,61,145,0.06);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    section { padding: 42px 0 0; }
-
-    .section-title {
-      font-size: 30px;
-      margin: 0 0 12px;
-      letter-spacing: -0.025em;
-    }
-
-    .section-intro {
-      max-width: 820px;
-      color: #4B5563;
-      font-size: 17px;
-      margin: 0 0 24px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-      background: var(--white);
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 19px;
-      color: var(--blue);
-    }
-
-    .card p { margin: 0; color: #4B5563; }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-    }
-
-    .list {
-      margin: 0;
-      padding-left: 20px;
-      color: #374151;
-    }
-
-    .list li { margin-bottom: 10px; }
-
-    .stack {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .step {
-      background: var(--light);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      min-height: 130px;
-    }
-
-    .step strong {
-      display: block;
-      color: var(--blue);
-      margin-bottom: 8px;
-    }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .metric {
-      background: var(--graphite);
-      color: var(--white);
-      border-radius: 18px;
-      padding: 22px;
-      min-height: 135px;
-    }
-
-    .metric span {
-      display: block;
-      font-size: 13px;
-      color: #D1D5DB;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .metric strong {
-      font-size: 20px;
-      line-height: 1.25;
-    }
-
-    .cta {
-      margin-top: 46px;
-      background: linear-gradient(135deg, var(--graphite), var(--blue));
-      color: var(--white);
-      border-radius: 28px;
-      padding: 36px;
-      display: grid;
-      grid-template-columns: 1.6fr 0.8fr;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .cta h2 {
-      margin: 0 0 12px;
-      font-size: 32px;
-      letter-spacing: -0.025em;
-    }
-
-    .cta p { margin: 0; color: #E5E7EB; font-size: 17px; }
-
-    .button {
-      display: inline-block;
-      justify-self: end;
-      background: var(--white);
-      color: var(--blue);
-      text-decoration: none;
-      padding: 14px 20px;
-      border-radius: 999px;
-      font-weight: 700;
-    }
-
-    footer {
-      margin-top: 36px;
-      color: var(--steel);
-      font-size: 13px;
-      border-top: 1px solid var(--border);
-      padding-top: 18px;
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid, .two-col, .cta { grid-template-columns: 1fr; }
-      .cards, .stack, .metrics { grid-template-columns: 1fr 1fr; }
-      .button { justify-self: start; }
-    }
-
-    @media (max-width: 560px) {
-      .page { padding: 0 18px 42px; }
-      .cards, .stack, .metrics { grid-template-columns: 1fr; }
-      header { padding-top: 38px; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="The IT Elevation Data Management program establishes trusted data foundations through clear ownership, data quality, governance, integration, and analytics readiness.">
+  <title>Data Management | IT Elevation™</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/program.css">
 </head>
-<body>
-  <main class="page">
-    <header>
-      <div class="eyebrow">IT Elevation | Architecture Layer</div>
-      <div class="hero-grid">
-        <div>
-          <h1>Data Architecture</h1>
-          <p class="hero-text">
-            Establish the data structures, standards, governance, and integration patterns required to create trusted information, reduce data fragmentation, and enable better decisions across the enterprise.
-          </p>
-          <div class="pill-row">
-            <span class="pill">Data Strategy</span>
-            <span class="pill">Information Models</span>
-            <span class="pill">Data Governance</span>
-            <span class="pill">Analytics Readiness</span>
+
+<body class="program-page">
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo">IT Elevation™</a>
+        <ul>
+          <li><a href="ITE.html">Framework</a></li>
+          <li><a href="Governance.html">Governance</a></li>
+          <li><a href="Architecture.html">Architecture</a></li>
+          <li><a href="Delivery.html">Delivery</a></li>
+          <li><a href="Orchestration.html">Orchestration</a></li>
+          <li><a href="#assessment">Assessment</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-layout">
+        <div class="hero-content">
+          <div class="eyebrow program-eyebrow">Architecture Layer · Program 02</div>
+          <h1>Build a trusted data foundation for better decisions.</h1>
+          <p>Establish the data structures, standards, ownership, and integration practices needed to reduce
+            fragmentation, improve information quality, and support confident decisions across the enterprise.</p>
+          <div class="hero-buttons">
+            <a href="#program" class="btn btn-primary">Explore the Program</a>
+            <a href="#approach" class="btn btn-secondary">Start with a Data Assessment</a>
           </div>
         </div>
         <div class="hero-card">
-          <h2>Program Purpose</h2>
-          <p>
-            Build a practical Data Architecture capability that connects business capabilities, systems, integrations, analytics, and governance into a trusted data foundation for transformation.
+          <h2>Data Management</h2>
+          <p>Connect data strategy, governance, quality, integration, and analytics needs through a practical model for
+            trusted, usable enterprise information.</p>
+          <div class="portfolio">
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Data Strategy</strong>
+                <p>Align data priorities to business outcomes</p>
+              </div>
+            </div>
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Data Governance</strong>
+                <p>Clarify ownership and decision rights</p>
+              </div>
+            </div>
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Data Quality &amp; Standards</strong>
+                <p>Improve consistency and trust</p>
+              </div>
+            </div>
+            <div class="portfolio-item"><span class="dot architecture"></span>
+              <div><strong>Integration &amp; Analytics</strong>
+                <p>Enable reliable flows and insights</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="program" class="program-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Why this program matters</div>
+          <h2>Move from fragmented information to trusted, governed data.</h2>
+          <p class="lead">As organizations grow, data is duplicated across systems, defined differently by teams, moved
+            through fragile integrations, and governed inconsistently. Data Management establishes the ownership,
+            standards, quality practices, and integration discipline needed to make information reliable and useful.</p>
+        </div>
+        <div class="program-grid">
+          <article class="program-card"><span class="tag">Pain point 01</span>
+            <h3>Fragmented data</h3>
+            <p>Critical information is duplicated across systems, making it difficult to establish a consistent view of
+              the business.</p>
+          </article>
+          <article class="program-card"><span class="tag">Pain point 02</span>
+            <h3>Unclear ownership</h3>
+            <p>Data definitions, stewardship, quality responsibilities, and decision rights may vary across teams.</p>
+          </article>
+          <article class="program-card"><span class="tag">Pain point 03</span>
+            <h3>Low trust in information</h3>
+            <p>Inconsistent definitions and quality issues increase reconciliation work and weaken reporting confidence.
+            </p>
+          </article>
+          <article class="program-card"><span class="tag">Pain point 04</span>
+            <h3>Limited analytics readiness</h3>
+            <p>Fragile integrations and unclear lineage make it harder to support automation, analytics, AI, and timely
+              decisions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section section-light">
+      <div class="container program-split">
+        <div class="program-panel">
+          <div class="section-label">Program purpose</div>
+          <h2>Make enterprise data trusted, governed, and usable.</h2>
+          <p>The Data Management program connects business data domains, ownership, standards, quality, integration, and
+            analytics needs into a repeatable capability that improves information trust and supports transformation.
           </p>
         </div>
-      </div>
-    </header>
-
-    <section>
-      <h2 class="section-title">Why it matters</h2>
-      <p class="section-intro">
-        Data Architecture helps organizations move from fragmented, inconsistent, and hard-to-trust data toward a clear enterprise model that supports operations, reporting, automation, AI, and executive decision-making.
-      </p>
-      <div class="cards">
-        <article class="card">
-          <h3>Common Challenge</h3>
-          <p>Data is often duplicated across systems, defined differently by teams, moved through fragile integrations, and governed inconsistently across business and technology ownership.</p>
-        </article>
-        <article class="card">
-          <h3>Business Impact</h3>
-          <p>Inconsistent data slows decisions, weakens reporting confidence, increases reconciliation work, limits automation, and creates risk when transformation programs depend on unreliable information.</p>
-        </article>
-        <article class="card">
-          <h3>Program Outcome</h3>
-          <p>A clear data architecture model with trusted domains, data flows, ownership, standards, quality routines, and a roadmap to improve analytics and operational intelligence.</p>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">What the program helps you build</h2>
-      <div class="two-col">
-        <div class="card">
-          <h3>Core Capabilities</h3>
-          <ul class="list">
-            <li>Enterprise data domain mapping connected to business capabilities, applications, integrations, analytics, and ownership.</li>
-            <li>Current-state and target-state data views that clarify master data, transactional data, reference data, reporting data, and data flows.</li>
-            <li>Data standards, information models, quality rules, governance routines, stewardship roles, and data decision rights.</li>
-            <li>Roadmaps that prioritize data modernization, integration simplification, reporting confidence, and analytics enablement.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Client Value</h3>
-          <ul class="list">
-            <li>Improved trust in operational, financial, customer, product, supplier, and performance information.</li>
-            <li>Reduced manual reconciliation and reporting friction through clearer definitions, ownership, and data quality routines.</li>
-            <li>Stronger foundation for analytics, automation, AI, regulatory reporting, and executive performance management.</li>
-            <li>Better transformation decisions through visible dependencies between data, systems, processes, and business outcomes.</li>
-          </ul>
+        <div class="program-grid grid-2">
+          <article class="program-card">
+            <h3>Data domain and ownership mapping</h3>
+            <p>Connect critical data domains to business processes, systems of record, data owners, and stewards.</p>
+          </article>
+          <article class="program-card">
+            <h3>Data quality and standards</h3>
+            <p>Define common terms, quality rules, metadata practices, and issue-resolution responsibilities.</p>
+          </article>
+          <article class="program-card">
+            <h3>Integration and lineage</h3>
+            <p>Make data flows, dependencies, lineage, and reporting sources visible and actionable.</p>
+          </article>
+          <article class="program-card">
+            <h3>Governance and analytics readiness</h3>
+            <p>Establish governance routines and prioritize improvements that support reporting, automation, and
+              analytics.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">Transformation journey</h2>
-      <p class="section-intro">
-        The program can begin with a targeted data assessment and evolve into an operating capability that continuously improves data trust, usability, governance, and analytics readiness.
-      </p>
-      <div class="stack">
-        <div class="step"><strong>1. Assess</strong>Review business priorities, data pain points, critical reports, systems of record, integrations, ownership, quality issues, and analytics needs.</div>
-        <div class="step"><strong>2. Map</strong>Create current-state views of data domains, master data, data flows, reporting dependencies, integration points, lineage, and known quality gaps.</div>
-        <div class="step"><strong>3. Align</strong>Align business and technology leaders on critical data domains, definitions, ownership, decision rights, governance needs, and improvement priorities.</div>
-        <div class="step"><strong>4. Design</strong>Define target-state data architecture, domain models, data standards, stewardship model, integration principles, and quality management approach.</div>
-        <div class="step"><strong>5. Prioritize</strong>Translate data gaps into initiatives based on business value, reporting impact, process dependency, regulatory need, feasibility, and transformation risk.</div>
-        <div class="step"><strong>6. Roadmap</strong>Create a phased data roadmap that sequences governance, quality, integration, master data, reporting, and analytics improvements.</div>
-        <div class="step"><strong>7. Govern</strong>Launch data governance routines, ownership forums, data quality reviews, issue resolution processes, and standards adoption across teams.</div>
-        <div class="step"><strong>8. Improve</strong>Continuously refresh data models, quality rules, ownership, lineage, and roadmap priorities as business needs and systems evolve.</div>
+    <section class="program-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Client deliverables</div>
+          <h2>Practical assets that improve data trust, accountability, and usability.</h2>
+          <p class="lead">A reusable set of data models, standards, ownership practices, quality routines, and roadmaps
+            helps teams manage information as an enterprise asset and make informed improvement decisions.</p>
+        </div>
+        <div class="program-grid grid-3">
+          <article class="program-card">
+            <h3>Data Architecture Blueprint</h3>
+            <p>Current- and target-state views of data domains, systems of record, integrations, reporting dependencies,
+              lineage, and ownership.</p>
+          </article>
+          <article class="program-card">
+            <h3>Data Standards &amp; Governance Model</h3>
+            <p>Common definitions, data principles, stewardship roles, decision rights, quality rules, and
+              issue-management routines.</p>
+          </article>
+          <article class="program-card">
+            <h3>Data Modernization Roadmap</h3>
+            <p>Prioritized initiatives for data quality, integration, master data, reporting confidence, analytics, and
+              AI readiness.</p>
+          </article>
+          <article class="program-card">
+            <h3>Data Domain &amp; Ownership Map</h3>
+            <p>A view of critical data domains, business owners, stewards, systems of record, and downstream consumers.
+            </p>
+          </article>
+          <article class="program-card">
+            <h3>Data Quality &amp; Issue Register</h3>
+            <p>Defined quality dimensions, rules, known issues, severity, accountable owners, and remediation
+              priorities.</p>
+          </article>
+          <article class="program-card">
+            <h3>Data Flow &amp; Lineage View</h3>
+            <p>Documented data movement and dependencies to support impact analysis, reliable reporting, and change
+              planning.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">Typical deliverables</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Data Architecture Blueprint</h3>
-          <p>Current-state and target-state views across data domains, systems of record, integrations, lineage, reporting dependencies, and ownership.</p>
+    <section class="program-section section-blue">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Transformation journey</div>
+          <h2>Eight steps from data assessment to trusted, governed information.</h2>
+          <p class="lead">The journey can begin with critical data domains and priority reports, then grow into an
+            operating capability that continuously improves data quality, ownership, integration, and analytics
+            readiness.</p>
+        </div>
+        <div class="program-journey">
+          <article class="program-step">
+            <h3>Assess current state</h3>
+            <p>Review critical reports, data pain points, systems of record, integrations, ownership, quality issues,
+              and analytics needs.</p>
+          </article>
+          <article class="program-step">
+            <h3>Map data domains</h3>
+            <p>Document critical domains, master and reference data, data flows, reporting dependencies, lineage, and
+              known gaps.</p>
+          </article>
+          <article class="program-step">
+            <h3>Align stakeholders</h3>
+            <p>Agree on priority domains, definitions, ownership, stewardship, decision rights, and business outcomes.
+            </p>
+          </article>
+          <article class="program-step">
+            <h3>Design standards</h3>
+            <p>Define data models, common definitions, quality rules, metadata practices, and integration principles.
+            </p>
+          </article>
+          <article class="program-step">
+            <h3>Prioritize gaps</h3>
+            <p>Rank improvements by business impact, reporting needs, regulatory obligations, risk, and feasibility.</p>
+          </article>
+          <article class="program-step">
+            <h3>Build the roadmap</h3>
+            <p>Sequence governance, data quality, integration, master data, reporting, and analytics improvements.</p>
+          </article>
+          <article class="program-step">
+            <h3>Activate governance</h3>
+            <p>Launch stewardship routines, quality reviews, issue resolution, ownership forums, and standards adoption.
+            </p>
+          </article>
+          <article class="program-step">
+            <h3>Improve continuously</h3>
+            <p>Refresh data models, quality rules, lineage, ownership, and priorities as business needs and systems
+              evolve.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Success measures</div>
+          <h2>Measure trust, visibility, governance, and analytics readiness.</h2>
+          <p class="lead">Select measures that reflect critical data domains, information quality needs, reporting
+            dependencies, and business priorities.</p>
+        </div>
+        <div class="program-grid grid-3">
+          <article class="program-card program-metric">
+            <h3>Trust</h3>
+            <p>Critical data domains have clear owners, agreed definitions, and quality measures.</p>
+          </article>
+          <article class="program-card program-metric">
+            <h3>Visibility</h3>
+            <p>Data flows, systems of record, reporting dependencies, and lineage are documented and actionable.</p>
+          </article>
+          <article class="program-card program-metric">
+            <h3>Governance &amp; readiness</h3>
+            <p>Data issues are resolved through clear stewardship routines, and analytics initiatives are supported by
+              reliable, accessible information.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach" class="program-section section-light">
+      <div class="container program-mvp">
+        <div>
+          <div class="section-head">
+            <div class="section-label">Start small, prove value</div>
+            <h2>Start with a focused data assessment.</h2>
+            <p class="lead">A focused assessment identifies critical data domains, ownership gaps, quality issues,
+              fragile integrations, and the improvements that will most strengthen reporting and decision-making.</p>
+          </div>
+          <ul class="program-mvp-list">
+            <li>Select critical data domains, reports, and business decisions in scope.</li>
+            <li>Map data sources, systems of record, ownership, and key data flows.</li>
+            <li>Assess data quality, definition conflicts, lineage, and governance gaps.</li>
+            <li>Prioritize a small set of quality, integration, and stewardship improvements.</li>
+            <li>Define data owners, success measures, and a practical improvement roadmap.</li>
+          </ul>
+        </div>
+        <article class="program-card"><span class="tag">Typical assessment outputs</span>
+          <h3>A practical data improvement plan</h3>
+          <p>Critical data domain map, ownership and stewardship gaps, quality findings, priority data flows,
+            recommended controls, success measures, and a phased improvement roadmap.</p>
         </article>
-        <article class="card">
-          <h3>Data Standards & Governance Model</h3>
-          <p>Data principles, definitions, stewardship roles, decision rights, quality rules, issue management routines, and adoption governance.</p>
-        </article>
-        <article class="card">
-          <h3>Data Modernization Roadmap</h3>
-          <p>Prioritized initiatives for master data, integration, reporting confidence, data quality, analytics enablement, and AI readiness.</p>
-        </article>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">Success measures</h2>
-      <div class="metrics">
-        <div class="metric"><span>Trust</span><strong>Critical data domains defined, owned, governed, and measured for quality and usability</strong></div>
-        <div class="metric"><span>Visibility</span><strong>Data flows, systems of record, reporting dependencies, and lineage made clear and actionable</strong></div>
-        <div class="metric"><span>Governance</span><strong>Data decisions managed through ownership, standards, stewardship, issue resolution, and quality routines</strong></div>
-        <div class="metric"><span>Readiness</span><strong>Analytics, automation, and AI initiatives supported by reliable, accessible, and well-structured data</strong></div>
+    <section id="assessment" class="program-cta">
+      <div class="container program-cta-inner">
+        <div class="section-label">Data Management · Architecture Layer</div>
+        <h2>Ready to make enterprise data more trusted and useful?</h2>
+        <p>Data Management helps organizations improve information trust, reduce reconciliation work, and build a
+          stronger foundation for reporting, analytics, automation, and AI.</p>
+        <a href="mailto:info@itelevation.net?subject=Data%20Management%20Program%20Discussion"
+          class="btn btn-primary">Schedule a Discovery Conversation</a>
       </div>
     </section>
-
-    <section class="cta">
-      <div>
-        <h2>Create a trusted data foundation for transformation.</h2>
-        <p>
-          Data Architecture helps technology and business leaders turn fragmented information into a governed, usable, and scalable foundation for decisions, analytics, automation, and AI.
-        </p>
-      </div>
-      <a class="button" href="#">Start the conversation</a>
-    </section>
-
-    <footer>
-      IT Elevation | Architecture Layer | Data Architecture
-    </footer>
   </main>
+
+  <footer class="program-footer">
+    <div class="container footer-inner"><span>IT Elevation™ · Architecture Layer · Data Management</span><a
+        href="Architecture.html">Back to Architecture</a></div>
+  </footer>
 </body>
+
 </html>
